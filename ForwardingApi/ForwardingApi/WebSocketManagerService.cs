@@ -39,7 +39,7 @@ public class WebSocketManagerService : IWebSocketManagerService
         await _webSocket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
     }
 
-    public async Task ReceiveMessageAsync( string method)
+    public async Task ReceiveMessageAsync()
     {
         var receiveBuffer = new ArraySegment<byte>(new byte[1024]);
         while (_webSocket.State == WebSocketState.Open)
@@ -52,7 +52,25 @@ public class WebSocketManagerService : IWebSocketManagerService
             }
 
             var messageReceived = Encoding.UTF8.GetString(receiveBuffer.Array, 0, result.Count);
-            await _hubContext.Clients.All.SendAsync(method, messageReceived);
+
+            if (string.IsNullOrWhiteSpace(messageReceived) || messageReceived == "\"\"")
+            {
+                continue;
+            }
+
+            try
+            {
+                var message = JsonSerializer.Deserialize<Message>(messageReceived, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                if (message.MessageType == "connection_ack")
+                {
+                    continue;
+                }
+            }
+            catch (Exception)
+            { }
+
+            await _hubContext.Clients.All.SendAsync("ReceiveMessage", messageReceived);
         }
     }
 }

@@ -15,8 +15,7 @@
         <button onclick="start()">Start</button>
         <button onclick="sendMessage()">Send Message</button>
         <br><br>
-        <div id="ConnectAsync"></div>
-        <div id="send-message-response"></div>
+        <div id="ReceiveMessage"></div>
 
         <script>
             const connection = new signalR.HubConnectionBuilder()
@@ -24,20 +23,12 @@
                 .withAutomaticReconnect()
                 .build();
 
-            connection.on("StartResponse", function (message) {
+            connection.on("ReceiveMessage", function (message) {
                 console.log(message);
-                const startResponseDiv = document.getElementById("start-response");
+                const receiveMessageDiv = document.getElementById("ReceiveMessage");
                 const newResponse = document.createElement("li");
                 newResponse.textContent = message;
-                startResponseDiv.appendChild(newResponse);
-            });
-
-            connection.on("SendMessageResponse", function (message) {
-                console.log(message);
-                const sendMessageResponseDiv = document.getElementById("send-message-response");
-                const newResponse = document.createElement("li");
-                newResponse.textContent = message;
-                sendMessageResponseDiv.appendChild(newResponse);
+                receiveMessageDiv.appendChild(newResponse);
             });
 
             connection.start().catch(err => console.error(err));

@@ -16,7 +16,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
         policy => policy
-            .WithOrigins("http://127.0.0.1:5500")  // Allow only the frontend origin
+            .WithOrigins("http://127.0.0.1:5501")  // Allow only the frontend origin
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials() // Enables cookies, authentication, etc.

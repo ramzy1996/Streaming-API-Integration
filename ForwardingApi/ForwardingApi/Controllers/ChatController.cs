@@ -83,18 +83,17 @@ public class ChatController(IWebSocketManagerService socketManager, IHubContext<
         await socketManager.ConnectAsync(userId);
 
         // Start receiving messages from the WebSocket endpoint
-        await socketManager.ReceiveMessageAsync("StartResponse");
+        //await socketManager.ReceiveMessageAsync("StartResponse");
 
         return Ok(new { Message = "Connected to WebSocket endpoint" });
     }
-
 
     [HttpPost("send")]
     public async Task<IActionResult> SendMessage([FromForm] ChatRequestDto request)
     {
         await socketManager.SendMessageAsync(request);
 
-        await socketManager.ReceiveMessageAsync("SendMessageResponse");
+        await socketManager.ReceiveMessageAsync();
 
         return Ok(new { Message = "Message sent" });
     }

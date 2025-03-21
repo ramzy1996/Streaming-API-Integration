@@ -22,19 +22,19 @@ public class ChatHub : Hub
         Console.WriteLine($"Client {Context.ConnectionId} connected");
     }
 
-    //public override async Task OnDisconnectedAsync(Exception? exception)
-    //{
-    //    await base.OnDisconnectedAsync(exception);
-    //    Console.WriteLine($"Client {Context.ConnectionId} disconnected");
-    //}
-
-    public async Task StartResponse(string message)
+    public override async Task OnDisconnectedAsync(Exception? exception)
     {
-        await Clients.All.SendAsync("StartResponse", message);
+        await base.OnDisconnectedAsync(exception);
+        Console.WriteLine($"Client {Context.ConnectionId} disconnected");
     }
 
-    public async Task SendMessageResponse(string message)
+    //public async Task StartResponse(string message)
+    //{
+    //    await Clients.All.SendAsync("StartResponse", message);
+    //}
+
+    public async Task ReceiveMessage(string message)
     {
-        await Clients.All.SendAsync("SendMessageResponse", message);
+        await Clients.All.SendAsync("ReceiveMessage", message);
     }
 }
