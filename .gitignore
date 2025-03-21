@@ -1,0 +1,68 @@
+# Build & Compiled Files
+bin/
+obj/
+out/
+*.exe
+*.dll
+*.pdb
+*.app
+*.log
+*.cache
+
+# User-Specific & IDE Configurations
+.vscode/
+.idea/
+*.suo
+*.user
+*.vs/
+*.swp
+*.sln.docstates
+*.sln.cache
+*.sln.ide
+
+# Rider & Resharper
+*.DotSettings.user
+*.sln.iml
+
+# NuGet & Dependencies
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+project.lock.json
+artifacts/
+
+# Entity Framework Migrations
+migrations/
+*.bak
+
+
+# Logs & Debugging
+*.log
+logs/
+coverage/
+coverage.info
+coverage.opencover.xml
+*.testResults.xml
+TestResults/
+
+# Publish & Deployment Outputs
+publish/
+wwwroot/
+dist/
+node_modules/
+yarn.lock
+package-lock.json
+
+# Database & Local Data
+*.mdf
+*.ldf
+*.sqlite
+*.db
+*.db-shm
+*.db-wal
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+*.userprefs
